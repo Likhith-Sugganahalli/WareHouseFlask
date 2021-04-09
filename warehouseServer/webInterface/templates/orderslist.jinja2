@@ -1,0 +1,30 @@
+{% extends "layout.jinja2" %}
+
+
+{% block content %}
+
+  <div class="container">
+  <h1>Flask-SQLAlchemy Tutorial</h1>
+    {% for order in orders %}
+    <ul id="user.username">
+      <li>
+        <span class="field-name">Order:</span>
+        <span class="field-value">{{ order.Product }}</span>
+      </li>
+      <li>
+        <span class="field-name">OrderId:</span>
+        <span class="field-value">{{ order.OrderId }}</span>
+      </li>
+      <li>
+        <span class="field-name">SrNo:</span>
+        <span class="field-value">{{ order.SrNo }}</span>
+      </li>
+      <li>
+        <span class="field-name">Quantity:</span>
+        <span class="field-value">{{ order.Quantity }}</span>
+      </li>
+    </ul>
+    {% endfor %}
+  </div>
+
+{% endblock %}
