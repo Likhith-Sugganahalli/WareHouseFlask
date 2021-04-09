@@ -25,5 +25,4 @@ class Coms():
 if __name__ == '__main__':
 	com_object = Coms()
 	while True:
-		keyboard.wait('q')
-		keyboard.send('ctrl+6')
+		pass
