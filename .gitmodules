@@ -1,0 +1,3 @@
+[submodule "mqttCom"]
+	path = mqttCom
+	url = https://github.com/Likhith-Sugganahalli/mqttCom.git
