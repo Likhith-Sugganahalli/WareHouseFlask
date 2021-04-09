@@ -2,8 +2,6 @@
 
 from mqttCom import iot
 import ast
-import keyboard
-
 
 class Coms():
 	def __init__(self):
