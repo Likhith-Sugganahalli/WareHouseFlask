@@ -14,6 +14,8 @@ webInterface_bp = Blueprint(
 )
 
 
+
+
 @webInterface_bp.route('/order/', methods=['POST'])
 def jsonDump():
 
@@ -38,8 +40,11 @@ def jsonDump():
 
 		db.session.add(neworder)  # Adds new User record to database
 		db.session.commit()
+		session['orderInfo'] = temp
+		redirect(url_for('mqttInterface.jsonDump',orderBool = True))
 
-	return "Order Placed, Order info is {}".format(temp)
+
+	#return "Order Placed, Order info is {}".format(temp)
 
 
 @webInterface_bp.route('/', methods=['GET'])

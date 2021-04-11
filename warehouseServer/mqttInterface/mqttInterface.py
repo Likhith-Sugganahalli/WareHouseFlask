@@ -12,6 +12,10 @@ mqttInterface_bp = Blueprint(
 	static_folder='static'
 )
 
+@mqttInterface_bp.route('/mqtt/talk/')
+	def redirectingPages():
+		redirect(url_for('mqttInterface.jsonDump',orderBool = False))
+
 
 def uuidGenerator():
 	uuid1 = str(int(time.time()))[:6]
@@ -25,15 +29,27 @@ def mqttPub(messageString):
 def home():
 	return'Hi'
 
-@mqttInterface_bp.route('/mqtt/talk/', methods=['POST'])
-def jsonDump():
+@mqttInterface_bp.route('/mqtt/talk/<orderBool>', methods=['POST'])
+def jsonDump(orderBool):
 	request_data = request.get_json()
 
 	if request_data:
-		if 'message' in request_data:
-			message = request_data['message']
-		else:
-			return'json invalid'
-	mqttPub(message)
 
-	return "Order Placed, Order info is {}".format(message)
+		if orderBool == False:
+			if 'message' in request_data:
+				message = request_data['message']
+				mqttPub(message)
+				return "Custom order Placed, Order info is {}".format(message)
+			else:
+				return'json invalid'
+		else:
+			message = session['orderInfo']
+			session.pop('orderInfo',none)
+			mqttPub(message)
+			return "Order Placed, Order info is {}".format(message)
+
+
+
+	
+
+	
