@@ -13,8 +13,8 @@ mqttInterface_bp = Blueprint(
 )
 
 @mqttInterface_bp.route('/mqtt/talk/')
-	def redirectingPages():
-		redirect(url_for('mqttInterface.jsonDump',orderBool = False))
+def redirectingPages():
+	redirect(url_for('mqttInterface.jsonDump',orderBool = False))
 
 
 def uuidGenerator():
