@@ -6,22 +6,11 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
-project_dir = os.path.dirname(os.path.abspath(__file__))
-database_file = "sqlite:///{}".format(os.path.join(project_dir, "orders.db"))
-
-
-
-
 def init_app():
     """Create Flask application."""
     app = Flask(__name__, instance_relative_config=False)
-    app.config.from_object('config.Config')
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_file
+    app.config.from_object('config.DevConfig')
     db.init_app(app)
-
-    
-
-    
 
     with app.app_context():
         # Import parts of our application

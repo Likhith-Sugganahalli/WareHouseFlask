@@ -1,26 +1,28 @@
-
-"""Class-based Flask app configuration."""
+"""Flask configuration."""
 from os import environ, path
-
 from dotenv import load_dotenv
 
 basedir = path.abspath(path.dirname(__file__))
-load_dotenv(path.join(basedir, ".env"))
+load_dotenv(path.join(basedir, '.env'))
 
-
+project_dir = os.path.dirname(os.path.abspath(__file__))
 class Config:
-    """Configuration from environment variables."""
+    """Base config."""
+    SECRET_KEY = environ.get('SECRET_KEY')
+    SESSION_COOKIE_NAME = environ.get('SESSION_COOKIE_NAME')
+    STATIC_FOLDER = 'static'
+    TEMPLATES_FOLDER = 'templates'
 
-    SECRET_KEY = environ.get("SECRET_KEY")
-    FLASK_ENV = environ.get("FLASK_ENV")
-    FLASK_APP = "wsgi.py"
 
-    # Flask-Assets
-    LESS_BIN = environ.get("LESS_BIN")
-    ASSETS_DEBUG = True
-    LESS_RUN_IN_DEBUG = True
+class ProdConfig(Config):
+    FLASK_ENV = 'production'
+    DEBUG = False
+    TESTING = False
+    DATABASE_URI = environ.get('PROD_DATABASE_URI')
 
-    # Static Assets
-    STATIC_FOLDER = "static"
-    TEMPLATES_FOLDER = "templates"
-    COMPRESSOR_DEBUG = True
+
+class DevConfig(Config):
+    FLASK_ENV = 'development'
+    DEBUG = True
+    TESTING = True
+    DATABASE_URI = "sqlite:///{}".format(os.path.join(project_dir, "orders.db"))#environ.get('DEV_DATABASE_URI')
