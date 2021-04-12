@@ -30,7 +30,7 @@ def home():
 	return'{}'.format(app.config.keys())
 
 @mqttInterface_bp.route('/mqtt/talk/<orderBool>', methods=['GET','POST'])
-def jsonDump():
+def jsonDump(orderBool):
 
 	if request.method == 'POST':
 		request_data = request.get_json()
