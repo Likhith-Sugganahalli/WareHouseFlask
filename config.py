@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '.env'))
 
-project_dir = os.path.dirname(os.path.abspath(__file__))
+project_dir = path.dirname(path.abspath(__file__))
 class Config:
     """Base config."""
     SECRET_KEY = environ.get('SECRET_KEY')
@@ -25,4 +25,4 @@ class DevConfig(Config):
     FLASK_ENV = 'development'
     DEBUG = True
     TESTING = True
-    DATABASE_URI = "sqlite:///{}".format(os.path.join(project_dir, "orders.db"))#environ.get('DEV_DATABASE_URI')
+    DATABASE_URI = "sqlite:///{}".format(path.join(project_dir, "orders.db"))#environ.get('DEV_DATABASE_URI')
