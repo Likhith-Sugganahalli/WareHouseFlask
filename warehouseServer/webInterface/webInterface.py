@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, redirect, url_for
 from flask import current_app as app
 import time
 from flask import request
@@ -37,11 +37,14 @@ def jsonDump():
 		ttemp = uuidGenerator()
 		temp['orderId'] = ttemp
 		neworder = order(Product = temp['productId'],Quantity = temp['quantity'],OrderId = temp['orderId'])#,SrNo = 1)
-
+		print(temp)
+		print("temp")
 		db.session.add(neworder)  # Adds new User record to database
 		db.session.commit()
+		print("temp")
 		session['orderInfo'] = temp
-		redirect(url_for('mqttInterface_bp.jsonDump',orderBool = True))
+		print("temp")
+		return redirect(url_for('mqttInterface_bp.jsonDump',orderBool = "True"))
 
 
 	#return "Order Placed, Order info is {}".format(temp)
@@ -55,5 +58,4 @@ def home():
         title="Show Users"
     )
 def uuidGenerator():
-	print(time.time())
 	return str(int(time.time()))[6:]

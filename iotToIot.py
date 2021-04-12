@@ -5,9 +5,10 @@ import ast
 
 class Coms():
 	def __init__(self):
-		self._config_mqtt_server_url =  "192.168.1.14"
+		self._config_mqtt_server_url =  "192.168.1.13"
 		self._config_mqtt_server_port = 1883
-		self._orders_sub_config = 'warehouse/orders'
+		#self._orders_sub_config = 'warehouse/orders'
+		self._orders_sub_config = 'test/topic'
 		self._config_mqtt_qos = 0
 
 

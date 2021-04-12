@@ -12,6 +12,8 @@ def init_app():
     app.config.from_object('config.DevConfig')
     db.init_app(app)
 
+    
+
     with app.app_context():
         # Import parts of our application
         #db.create_all()

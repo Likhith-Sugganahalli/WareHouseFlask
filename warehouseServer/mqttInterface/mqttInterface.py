@@ -5,6 +5,8 @@ from flask import request
 from mqttCom import iot
 #from flask import 
 
+mqttBroker = app.config['MQTT_BROKER_URL']
+
 # Blueprint Configuration
 mqttInterface_bp = Blueprint(
 	'mqttInterface_bp', __name__,
@@ -12,17 +14,14 @@ mqttInterface_bp = Blueprint(
 	static_folder='static'
 )
 
-@mqttInterface_bp.route('/mqtt/talk/')
-def redirectingPages():
-	return redirect(url_for('mqttInterface_bp.jsonDump',orderBool = False))
-
 
 def uuidGenerator():
 	uuid1 = str(int(time.time()))[:6]
 	return uuid1
 
 def mqttPub(messageString):
-	iot.mqtt_publish('192.168.1.14',1883,'warehouse/orders',messageString,0)
+	print('here at publishing {}'.format(messageString))
+	iot.mqtt_publish(mqttBroker,1883,'warehouse/orders',messageString,0)
 
 
 @mqttInterface_bp.route('/mqtt', methods=['GET'])
@@ -31,28 +30,37 @@ def home():
 
 @mqttInterface_bp.route('/mqtt/talk/<orderBool>', methods=['GET','POST'])
 def jsonDump(orderBool):
-
+	print(type(orderBool))
+	#orderBool = False
 	if request.method == 'POST':
-		request_data = request.get_json()
+		print('mqtt')
+		request_data = request.get_json()	
 
-		if request_data:
-
-			if orderBool == False:
-				if 'message' in request_data:
-					message = request_data['message']
-					mqttPub(message)
-					return "Custom order Placed, Order info is {}".format(message)
-				else:
-					return'json invalid'
-			else:
-				message = session['orderInfo']
-				session.pop('orderInfo',none)
+		if orderBool=="False":
+			if 'message' in request_data:
+				print('mqtt')
+				message = request_data['message']
 				mqttPub(message)
-				return "Order Placed, Order info is {}".format(message)
+				print('mqtt')
+				return "Custom order Placed, Order info is {}".format(message)
+			else:
+				return'json invalid'
 		else:
-			return'request_data error'
+			print('doesnt make sense')
+				
+		
+	elif request.method == 'GET':
+		print('mqtt')
+		if orderBool=="True":
+			message = session['orderInfo']
+			session.pop('orderInfo',None)
+			mqttPub(str(message))
+			return "Order Placed, Order info is {}".format(message)
+		else:
+			print('orderbool error')
 	else:
-		return'no gets here'
+		return'request_data error'
+	
 
 
 	
