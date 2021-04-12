@@ -27,7 +27,7 @@ def mqttPub(messageString):
 
 @mqttInterface_bp.route('/mqtt', methods=['GET'])
 def home():
-	return'Hi'
+	return'{}'.format(app.config.keys())
 
 @mqttInterface_bp.route('/mqtt/talk/<orderBool>', methods=['POST'])
 def jsonDump(orderBool):

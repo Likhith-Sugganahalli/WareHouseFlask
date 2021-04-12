@@ -12,17 +12,18 @@ class Config:
     SESSION_COOKIE_NAME = environ.get('SESSION_COOKIE_NAME')
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
+    SQLALCHEMY_DATABASE_URI = "sqlite:///{}".format(path.join(project_dir, "orders.db"))
 
 
 class ProdConfig(Config):
     FLASK_ENV = 'production'
     DEBUG = False
     TESTING = False
-    DATABASE_URI = environ.get('PROD_DATABASE_URI')
+    #DATABASE_URI = environ.get('PROD_DATABASE_URI')
 
 
 class DevConfig(Config):
     FLASK_ENV = 'development'
     DEBUG = True
     TESTING = True
-    DATABASE_URI = "sqlite:///{}".format(path.join(project_dir, "orders.db"))#environ.get('DEV_DATABASE_URI')
+    #environ.get('DEV_DATABASE_URI')
