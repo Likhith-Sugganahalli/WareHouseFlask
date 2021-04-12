@@ -29,9 +29,8 @@ def mqttPub(messageString):
 def home():
 	return'{}'.format(app.config.keys())
 
-@mqttInterface_bp.route('/mqtt/talk/tome', methods=['GET','POST'])
+@mqttInterface_bp.route('/mqtt/talk/<orderBool>', methods=['GET','POST'])
 def jsonDump():
-	orderBool = False
 
 	if request.method == 'POST':
 		request_data = request.get_json()
@@ -50,7 +49,8 @@ def jsonDump():
 				session.pop('orderInfo',none)
 				mqttPub(message)
 				return "Order Placed, Order info is {}".format(message)
-		return'some error'
+		else:
+			return'request_data error'
 	else:
 		return'no gets here'
 
