@@ -41,7 +41,7 @@ def jsonDump():
 		db.session.add(neworder)  # Adds new User record to database
 		db.session.commit()
 		session['orderInfo'] = temp
-		redirect(url_for('mqttInterface.jsonDump',orderBool = True))
+		redirect(url_for('mqttInterface_bp.jsonDump',orderBool = True))
 
 
 	#return "Order Placed, Order info is {}".format(temp)

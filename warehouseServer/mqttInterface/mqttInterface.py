@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint,redirect,url_for
 from flask import current_app as app
 import time
 from flask import request
@@ -14,7 +14,7 @@ mqttInterface_bp = Blueprint(
 
 @mqttInterface_bp.route('/mqtt/talk/')
 def redirectingPages():
-	redirect(url_for('mqttInterface.jsonDump',orderBool = False))
+	return redirect(url_for('mqttInterface_bp.jsonDump',orderBool = False))
 
 
 def uuidGenerator():
@@ -29,25 +29,30 @@ def mqttPub(messageString):
 def home():
 	return'{}'.format(app.config.keys())
 
-@mqttInterface_bp.route('/mqtt/talk/<orderBool>', methods=['POST'])
-def jsonDump(orderBool):
-	request_data = request.get_json()
+@mqttInterface_bp.route('/mqtt/talk/tome', methods=['GET','POST'])
+def jsonDump():
+	orderBool = False
 
-	if request_data:
+	if request.method == 'POST':
+		request_data = request.get_json()
 
-		if orderBool == False:
-			if 'message' in request_data:
-				message = request_data['message']
-				mqttPub(message)
-				return "Custom order Placed, Order info is {}".format(message)
+		if request_data:
+
+			if orderBool == False:
+				if 'message' in request_data:
+					message = request_data['message']
+					mqttPub(message)
+					return "Custom order Placed, Order info is {}".format(message)
+				else:
+					return'json invalid'
 			else:
-				return'json invalid'
-		else:
-			message = session['orderInfo']
-			session.pop('orderInfo',none)
-			mqttPub(message)
-			return "Order Placed, Order info is {}".format(message)
-
+				message = session['orderInfo']
+				session.pop('orderInfo',none)
+				mqttPub(message)
+				return "Order Placed, Order info is {}".format(message)
+		return'some error'
+	else:
+		return'no gets here'
 
 
 	
