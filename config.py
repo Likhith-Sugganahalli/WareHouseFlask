@@ -14,6 +14,20 @@ class Config:
     TEMPLATES_FOLDER = 'templates'
     SQLALCHEMY_DATABASE_URI = "sqlite:///{}".format(path.join(project_dir, "orders.db"))
 
+    MQTT_CLIENT_ID = environ.get('MQTT_CLIENT_ID')
+    MQTT_BROKER_URL = environ.get('MQTT_BROKER_URL')
+    MQTT_BROKER_PORT = environ.get('MQTT_BROKER_PORT')
+    MQTT_USERNAME = environ.get('MQTT_USERNAME')
+    MQTT_PASSWORD = environ.get('MQTT_PASSWORD')
+    MQTT_TLS_ENABLED = environ.get('MQTT_TLS_ENABLED')
+    SESSION_COOKIE_NAME = environ.get('SESSION_COOKIE_NAME')
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
+    MQTT_BROKER_PORT = environ.get('MQTT_BROKER_PORT')
+    MQTT_ORDER_TOPIC = environ.get('MQTT_ORDER_TOPIC')
+    MQTT_QOS = environ.get('MQTT_QOS')
+
+
 
 class ProdConfig(Config):
     FLASK_ENV = 'production'

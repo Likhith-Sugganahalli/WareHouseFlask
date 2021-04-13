@@ -7,6 +7,10 @@ from mqttCom import iot
 
 mqttBroker = app.config['MQTT_BROKER_URL']
 
+mqttTopic = app.config['MQTT_ORDER_TOPIC']
+mqttPort = app.config['MQTT_BROKER_PORT']
+mqttQos = app.config['MQTT_QOS']
+
 # Blueprint Configuration
 mqttInterface_bp = Blueprint(
 	'mqttInterface_bp', __name__,
@@ -21,12 +25,12 @@ def uuidGenerator():
 
 def mqttPub(messageString):
 	print('here at publishing {}'.format(messageString))
-	iot.mqtt_publish(mqttBroker,1883,'warehouse/orders',messageString,0)
+	iot.mqtt_publish(mqttBroker,mqttPort,mqttTopic,messageString,0)
 
 
 @mqttInterface_bp.route('/mqtt', methods=['GET'])
 def home():
-	return'{}'.format(app.config.keys())
+	return'{}'.format(app.config['MQTT_PASSWORD'])
 
 @mqttInterface_bp.route('/mqtt/talk/<orderBool>', methods=['GET','POST'])
 def jsonDump(orderBool):
