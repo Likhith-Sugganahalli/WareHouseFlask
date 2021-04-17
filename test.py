@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
 
 from mqttCom import iot                                   # Custom Python Module to perfrom MQTT Tasks
-
+from dotenv import load_dotenv
+import os
 
 
 
 class Coms():
 	def __init__(self):
-		self._config_mqtt_server_url =  "192.168.1.13"
+
+
+		dotenv_path = join(dirname(__file__), '.env')
+		load_dotenv(dotenv_path)
+
+		self._config_mqtt_server_url =  os.environ.get('SERVER_URL')
 		self._config_mqtt_server_port = 1883
 		self._orders_sub_config = 'test/topic'
 		self._config_mqtt_qos = 0
