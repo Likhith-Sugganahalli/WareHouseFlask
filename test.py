@@ -10,7 +10,7 @@ class Coms():
 	def __init__(self):
 
 
-		dotenv_path = os.join(dirname(__file__), '.env')
+		dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 		load_dotenv(dotenv_path)
 
 		self._config_mqtt_server_url =  os.environ.get('SERVER_URL')
