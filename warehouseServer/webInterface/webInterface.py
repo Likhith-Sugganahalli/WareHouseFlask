@@ -37,7 +37,6 @@ def jsonDump():
 		ttemp = uuidGenerator()
 		temp['orderId'] = ttemp
 		neworder = order(Product = temp['productId'],Quantity = temp['quantity'],OrderId = temp['orderId'])#,SrNo = 1)
-		print(temp)
 		print("temp")
 		db.session.add(neworder)  # Adds new User record to database
 		db.session.commit()

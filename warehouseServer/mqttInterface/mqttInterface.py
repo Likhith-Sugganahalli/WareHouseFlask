@@ -25,19 +25,18 @@ def uuidGenerator():
 
 def mqttPub(messageString):
 	print('here at publishing {}'.format(messageString))
-	iot.mqtt_publish(mqttBroker,mqttPort,mqttTopic,messageString,0)
-
+	ret = iot.mqtt_publish(mqttBroker,mqttPort,mqttTopic,messageString,0)
+	print(ret)
 
 @mqttInterface_bp.route('/mqtt', methods=['GET'])
 def home():
 	return'{}'.format(app.config['MQTT_PASSWORD'])
 
-@mqttInterface_bp.route('/mqtt/talk/<orderBool>', methods=['GET','POST'])
+@mqttInterface_bp.route('/mqtt/talk/<orderBool>', methods=['POST'])
 def jsonDump(orderBool):
-	print(type(orderBool))
+	print(session)
 	#orderBool = False
-	if request.method == 'POST':
-		print('mqtt')
+	'''
 		request_data = request.get_json()	
 
 		if orderBool=="False":
@@ -51,9 +50,9 @@ def jsonDump(orderBool):
 				return'json invalid'
 		else:
 			print('doesnt make sense')
-				
+	'''			
 		
-	elif request.method == 'GET':
+	if request.method == 'POST':
 		print('mqtt')
 		if orderBool=="True":
 			message = session['orderInfo']
