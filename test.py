@@ -21,8 +21,8 @@ class Coms():
 		
 def mqttPub(messageString):
 	print('here at publishing')
-	iot.mqtt_publish('192.168.1.14',1883,'warehouse/orders',messageString,0)
+	iot.mqtt_publish('192.168.1.14',1883,'test/check',messageString,0)
 
 if __name__ == '__main__':
 	#com_object = Coms()
-	mqttPub('holla')
+	mqttPub('test')
