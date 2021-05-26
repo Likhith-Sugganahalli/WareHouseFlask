@@ -1,8 +1,10 @@
 
 """Application entry point."""
-from warehouseServer import init_app
+from warehouseServer import init_app as warehouseServerApp
+from FTP import init_app as FTPApp
 
-app = init_app()
+#app1 = warehouseServerApp()
+app2 = FTPApp()
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app2.run(host="0.0.0.0")

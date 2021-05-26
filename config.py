@@ -26,6 +26,11 @@ class Config:
     MQTT_ORDER_TOPIC = environ.get('MQTT_ORDER_TOPIC')
     MQTT_QOS = environ.get('MQTT_QOS')
 
+    DOWNLOADED_DIRECTORY = path.join(basedir, environ.get('DOWNLOAD_FOLDER'))
+    UPLOAD_DIRECTORY = path.join(basedir,environ.get('UPLOAD_FOLDER'))
+    ALLOWED_EXTENSIONS = environ.get('ALLOWED_EXTENSIONS')
+    TESTING = environ.get('TESTING')
+
 
 
 class ProdConfig(Config):
